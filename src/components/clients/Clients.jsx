@@ -12,13 +12,33 @@ const Clients = () => {
 
   useEffect(() => { // хук
 
+    getClients();
+
+  }, []); //  при первичном ренере отправится запрос на сервер, при изменении clients, запутсится переданный колбэк и перерисуется компонент
+
+
+
+
+  const getClients = () => {
+
     axios.get('http://localhost:5000/api/clients')
       .then(response => {
-        console.log('response ', response);
-        setClients(response.data); // устаналвиваем обновленное значение в перем clients
+        console.log('response ', response); 
+        setClients(response.data); // устаналвиваем обновленное значение в перем clients [{},{}]
       })
+  };
 
-  }, clients, []); //  при первичном ренере отправится запрос на сервер, при изменении clients, запутсится переданный колбэк и перерисуется компонент
+
+
+  const deleteClient = (id) => { // id клиента
+
+    axios.delete(`http://localhost:5000/api/clients/${id}`)
+      .then(response => {
+        console.log('response.data ', response.data);
+        getClients(); // получаем обновленный список
+      })
+  };
+
 
 
 
@@ -34,10 +54,15 @@ const Clients = () => {
           <td>Срок действия абонемента</td>
           <td>Статус</td>
           <td>Тренер</td>
+          <td>Просмотр</td>
+          <td>Изменить</td>
+          <td>Удалить</td>
         </thead>
         
         { clients.map(elem => (
+            
             <tr key={elem.id}>
+              {console.log('elem._id ', elem._id)}
               <td> {elem.fio} </td>
               <td> {elem.dateBuy} </td>
               <td> {elem.firstCame} </td>
@@ -46,6 +71,9 @@ const Clients = () => {
               <td> {elem.srok} </td>
               <td> {elem.status} </td>
               <td> {elem.trenerId} </td>
+              <td><button > Просмотр </button></td>
+              <td><button > Изменить </button></td>
+              <td><button onClick={deleteClient.bind(this, elem._id)}> Удалить </button></td>
             </tr> 
         ))}
         

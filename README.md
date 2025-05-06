@@ -44,7 +44,7 @@ services:
     environment:
       CHOKIDAR_USEPOLLING: "true" # чтоб синхронизировать папку в коттрой разарабатываем с папкой в контенере
     volumes:
-      - ./client/src:/app/src # копируем содержимоае папки ./client/src в папку /app/src контенера
+      - ./client/src:/app/src # синхронизируем содержимоае папки ./client/src в папку /app/src контенера, чоб при изменении файлов в src, автоматом пересобиралось
     stdin_open: true
     tty: true
     command: npm start # запуск сервера

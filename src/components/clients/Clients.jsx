@@ -41,6 +41,16 @@ const Clients = () => {
 
 
 
+  const seeClient = (id) => {
+
+    axios.get(`http://localhost:5000/api/clients/${id}`)
+    .then(response => {
+      console.log('response.data ', response.data);
+      getClients(); // получаем обновленный список
+    })
+  }
+
+
 
   return (
     <div> 
@@ -62,7 +72,6 @@ const Clients = () => {
         { clients.map(elem => (
             
             <tr key={elem.id}>
-              {console.log('elem._id ', elem._id)}
               <td> {elem.fio} </td>
               <td> {elem.dateBuy} </td>
               <td> {elem.firstCame} </td>
@@ -71,7 +80,7 @@ const Clients = () => {
               <td> {elem.srok} </td>
               <td> {elem.status} </td>
               <td> {elem.trenerId} </td>
-              <td><button > Просмотр </button></td>
+              <td><button onClick={seeClient.bind(this, elem._id)}> Просмотр </button></td>
               <td><button > Изменить </button></td>
               <td><button onClick={deleteClient.bind(this, elem._id)}> Удалить </button></td>
             </tr> 

@@ -5,25 +5,49 @@ import axios from 'axios';
 // компонент
 const ViewClient = () => {
 
-  //const [ clients, setClients ] = useState([]); // завели перем состояния clients
+  const [ client, setClient ] = useState({}); // завели перем состояния client
 
 
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   axios.get('http://localhost:5000/api/clients')
-  //     .then(response => {
-  //       console.log('response ', response);
-  //       setClients(response.data); // устаналвиваем обновленное значение в перем clients
-  //     })
+    axios.get('http://localhost:5000/api/client/${_id}')
+      .then(response => {
+        console.log('response ', response);
+        setClient(response.data); // устаналвиваем обновленное значение в перем clients
+      })
 
-  // }, []);
+  }, client );
 
 
 
   return (
     <div> 
-      Карточка клиента
+       <table>
+        <thead>
+          <td>ФИО</td>
+          <td>Дата покупки</td>
+          <td>Первое посещение</td>
+          <td>Последнее посещение</td>
+          <td>Телефон</td>
+          <td>Срок действия абонемента</td>
+          <td>Статус</td>
+          <td>Тренер</td> 
+        </thead>
+        
+       {  
+        <tr key={client._id}>
+          <td> {client.fio} </td>
+          <td> {client.dateBuy} </td>
+          <td> {client.firstCame} </td>
+          <td> {client.lastCame} </td>
+          <td> {client.phone} </td>
+          <td> {client.srok} </td>
+          <td> {client.status} </td>
+          <td> {client.trenerId} </td>
+        </tr> 
+        }
+      </table> 
     </div>
   );
 };

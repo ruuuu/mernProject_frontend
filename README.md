@@ -1,3 +1,5 @@
+Файл Docker-compose вытащит из папки и положить рядом
+
 Dockerfile:
 
 FROM node:14-alpine
@@ -112,3 +114,5 @@ mongoose
 
 
 app.listen(5000) // порт на котром круттся бэкенд
+
+
